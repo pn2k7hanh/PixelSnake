@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Images/Board">
+        <file alias="box">Images/Board/box.png</file>
+    </qresource>
+</RCC>
