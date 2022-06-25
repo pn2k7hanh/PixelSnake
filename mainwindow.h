@@ -25,16 +25,26 @@ public:
     GraphicsScene *scene;
 public slots:
     void showInformation();
-    void _startTimer();
     void startSnakeGame();
+    void aboutMessageBox();
+    void newGameAction();
 //    void updateStatus();
 private:
     Ui::MainWindow *ui;
+
+    qint32 rwidth,rheight;
+    struct{
+        int w,h;
+    } scale;
+
+    QPoint m_dragPosition;
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event)override;
     void timerEvent(QTimerEvent *event) override;
 };
 #endif // MAINWINDOW_H

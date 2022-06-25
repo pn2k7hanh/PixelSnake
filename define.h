@@ -12,9 +12,11 @@ struct XY
 
 enum Direction
 {
+    NONE,
     UP,
     DOWN,
     LEFT,
     RIGHT
 };
+
 #endif // COORDINATE_H

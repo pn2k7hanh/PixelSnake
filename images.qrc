@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/Images/Snake">
+        <file alias="down">Images/Snake/down.png</file>
+        <file alias="downleft">Images/Snake/downleft.png</file>
+        <file alias="downright">Images/Snake/downright.png</file>
+        <file alias="left">Images/Snake/left.png</file>
+        <file alias="leftright">Images/Snake/leftright.png</file>
+        <file alias="right">Images/Snake/right.png</file>
+        <file alias="up">Images/Snake/up.png</file>
+        <file alias="updown">Images/Snake/updown.png</file>
+        <file alias="upleft">Images/Snake/upleft.png</file>
+        <file alias="upright">Images/Snake/upright.png</file>
+    </qresource>
+    <qresource prefix="/Images/Snake">
+        <file alias="leftArr">Images/Snake/leftArr.png</file>
+        <file alias="downArr">Images/Snake/downArr.png</file>
+        <file alias="rightArr">Images/Snake/rightArr.png</file>
+        <file alias="upArr">Images/Snake/upArr.png</file>
+    </qresource>
+</RCC>

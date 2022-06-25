@@ -10,8 +10,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->scale(1,1);
 //    connect(scene->gameArea.timer,SIGNAL(timeout()),this,SLOT(updateStatus()));
 //    connect(ui->pushButton,SIGNAL(clicked));
-    connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(_startTimer()));
+
+    rwidth=rheight=0;
+    scale={600,400};
     connect(ui->startGameButton,SIGNAL(clicked()),this,SLOT(startSnakeGame()));
+
+    connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(aboutMessageBox()));
+    connect(ui->actionNew,SIGNAL(triggered()),this,SLOT(newGameAction()));
+
+//    startSnakeGame();
+
 }
 
 MainWindow::~MainWindow()
@@ -25,15 +33,19 @@ void MainWindow::showInformation()
     QMessageBox::information(NULL,"Hello","Halo");
 }
 
-void MainWindow::_startTimer()
-{
-//    startTimer(1500);
-//    QMessageBox::information(nullptr,"startTimer","startTimer");
-    scene->gameArea.isApple=true;
-}
-
 void MainWindow::startSnakeGame()
 {
+    scene->gameArea.startGame();
+}
+
+void MainWindow::aboutMessageBox()
+{
+    QMessageBox::information(nullptr,"About","Made by PhamNamKhanh");
+}
+
+void MainWindow::newGameAction()
+{
+    scene->gameArea.gameLose();
     scene->gameArea.startGame();
 }
 
@@ -44,26 +56,59 @@ void MainWindow::startSnakeGame()
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-//    ui->widget->setGeometry(0,0,width(),height()-ui->menubar->height());
-//    ui->graphicsView->setGeometry(10,10,ui->widget->width()-19,ui->widget->height()-19);
-//    scene->resize(0,0,ui->widget->width()-19,ui->widget->height()-19);
-    QMainWindow::resizeEvent(event);
+//    if(rwidth<1)
+//    {
+//        rwidth=width();
+//        rheight=height();
+//    }
+//    else
+//    {
+////        if(qAbs(width()-rwidth)>qAbs(height()-rheight))
+//        if((width()-rwidth)>(height()-rheight))
+//        {
+//            resize(width(),width()*scale.h/scale.w);
+//        }
+//        else
+//        {
+//            resize(height()*scale.w/scale.h,height());
+//        }
+//        // scale.w/scale.h
+//        // width()/height()
+//    }
+    ui->graphicsView->resize(ui->widget->width()-10-ui->graphicsView->pos().x(),
+                             ui->widget->height()-10-ui->graphicsView->pos().y());
+    ui->startGameButton->setGeometry(width()-80,height()-60,70,30);
+////    QMainWindow::resizeEvent(event);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    //    QMessageBox::information(NULL,"Hello World","Hello World");
+    if (event->button() == Qt::LeftButton)
+    {
+        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
+        event->accept();
+    }
+    //        QMessageBox::information(NULL,"Hello World","Hello World");
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton)
+    {
+        move(event->globalPos() - m_dragPosition);
+        event->accept();
+    }
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)
 {
-    QMessageBox::information(nullptr,"Timer Event","Timer Event "+QString::number(event->timerId()));
-    killTimer(event->timerId());
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     scene->keyPress(event);
+
 //    if(event->nativeVirtualKey()==Qt::Key_0) ;
 //    QMessageBox::information(nullptr,"Key","Key "+QString::number(event->key())+" was pressed");
 //    QMainWindow::keyPressEvent(event);
